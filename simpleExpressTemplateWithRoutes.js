@@ -101,6 +101,19 @@ PROJECT_NAME = process.argv[2];
 		app.use("/users", usersRoute);
 
 
+		//Middleware for catching all unregistered routes (can be used to throw 404)
+		app.use( (req, res, next) => {
+			//send 404 err to the error handler
+			next(createError(404));
+		});
+
+		//Error handling Middleware . called whenever next function is called with arguments eg. next("Error occured: details");
+		app.use( (err, req, res, next) =>{
+			//handle all errors
+			res.status(err.status || 500)
+			res.send("ERROR OCCURED");
+		});
+
 		app.listen(3000, ()=>{
 			console.log("Server running at port 3000");
 		});
