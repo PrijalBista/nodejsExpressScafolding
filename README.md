@@ -67,7 +67,8 @@ Lets create and invoke it as well like this:
 })();
 
 ```
-3. Yes the rest is pretty easy. every file is just a variable with a template string. For example
+
+3. Yes, the rest is pretty easy. every file is just a variable with a template string. For example
 ```javascript
 indexFile = `
 const express = require("express");
@@ -75,7 +76,13 @@ const app = express();
 ..
 ..
 ..
+app.listen(3000,() => {console.log("Server listening at port 3000")});
+`
+//writing indexFile in index.js file
+createFile(PROJECT_NAME + "/index.js", indexFile);
+//Similar for other files
 ```
+
 4. One more thing (though not very important here) I used process.argv for getting the project name from the arguments passed in the command
 For the command `node my-script.js myargument1 myargument2` the process.argv array will have ['node', '/home/asdf/my-script.js', myargument1, myargument2]
 So to get the first argument we have to use process.argv[2] which is done in the script

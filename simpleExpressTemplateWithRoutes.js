@@ -21,8 +21,7 @@ const createFile = ( file, content )  => {
 
 			if(err == null) reject("File exists");
 			else if(err.code == "ENOENT"){
-				//file doesnot exist so creating one
-				//check if routeContent is a string
+				//file doesnot exist so creating the file
 
 				fs.writeFile(pathToFile,content, err => {
 					if(err) reject(err);
