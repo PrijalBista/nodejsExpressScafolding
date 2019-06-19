@@ -5,7 +5,10 @@ I made this because the current version of express generator (which i have in my
 But I usually use ES6 and above syntax which makes my project look very inconsistent. So i made this to solve my problem :) and I hope this will be helpful to you too.
 
 It also has some error handling middlewares (for catching 404s and all errors global handler)
-## Usage
+
+There are 2 scripts(currently) each described below.
+
+## Script 1: simple Express application scafolding
 
 ### Create a new express app
 `node simpleExpressTemplateWithRoutes.js < your-project-name >`
@@ -24,14 +27,32 @@ npm start command will start express server in port 3000. Visit <http://localhos
 `npm install -g nodemon`
 nodemon will watch for any code change during your development and restart the server whenever the file change is saved.
 
-### Project Folder Structure created by the script
-![project structure](https://github.com/PrijalBista/nodejsExpressScafolding/blob/master/images/simpleExpressTemplateWithRoutes.png)
+### Project Folder Structure created by this script
+![project structure](./images/simpleExpressTemplateWithRoutes.png)
 
 >| NOTE | : In package.json the dependencies express and morgan is set to latest so u can keep it as is or set it to version of your choice.
 Also the project descriptions fields are empty which u can fill.
 
->The script is very easy to follow. If any one is willing to contribute. I am open for pull request :)
+## Script 2: Express + MongoDb with Authentication using JWT(json web token) scafolding ...
+### Usage similar to previous
+`node simpleExpressTemplateWithAuthJWT.js expressAuth`
+
+### Project Folder Structure created by the script
+![project structure](./images/simpleExpressTemplateWithAuthJWT.png)
+
+>New packages are added here which includes (bcryptjs, jsonwebtoken, dotenv)
+### How authentication works in this project
+1. Simple Users Schema(name, email, password, timestamps) in /model/User.js
+2. "/auth/register" route for registering new users 
+3. "/auth/login" route for login procedure .. if success it returns {status:true , token: "JWT token"}
+4. Now all the routes which are protected(requires user to be logged in ) requires a Valid JWT token in their header with name auth-token i.e `auth-token: "JWT token that you got after successful login"`
+5. A middleware for verifying JWT token named 'verifyJWTToken.js' is there in '/middlewares/auth/verifyJWTToken.js'
+6. For protecting any route with authentication simply import verifyJWTToken.js and add it before sending sensitive datas. Example of this is present in users.js where '/' route is protected with this middleware.
+
 ## About the script | Detailed explanation
+
+>The scripts are very easy to follow. If any one is willing to contribute. I am open for pull request :)
+
 Its a node script which uses file system (fs) module to create files and directories.
 To make this script I first:
 1. Promisified the fs module inside a helper function like this
